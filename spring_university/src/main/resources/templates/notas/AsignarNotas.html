@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Asignar Notas | SpringUniversity</title>
+    <head th:replace="~{base::head}">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+</head>
+<body>
+    <nav th:replace="~{base::nav}"></nav>
+    <div class="col-10 mx-auto d-flex flex-column justify-content-center">
+        <div class="d-flex flex-column justify-content-center align-items-center">
+            <h1 class="text-center mt-2 col-10" th:text="'Asignar Notas A La Materia: ' + ${materia.nombre_materia}"></h1>
+        </div>
+        <div class="container text-center">
+            <div th:if="${estudiantes.size() == 0}"
+                class="d-flex justify-content-center align-items-center mt-5 rounded-5"
+                style="background-color: rgb(217, 217, 217); height: 10rem;">
+                <h3>
+                    <box-icon name='sad' type='solid' color='#202020'></box-icon>No hay estudiantes registrados aún.
+                </h3>
+            </div>
+            <div th:if="${estudiantes.size() > 0}" class="container mt-4">
+                <form action="/notas/save" method="post">
+                    <div class="col-6 mb-4 mx-auto" th:each="estudiante : ${estudiantes}">
+                        <div class="row justify-content-center">
+                            <div class="card">
+                                <div class="card-body d-flex gap-5">
+                                    <img th:src="${estudiante.ruta_foto}" class="rounded-3 col-1" alt="Imagen del estudiante" style="object-fit:cover;">
+                                    <h5 class="col-4 mt-3 mb-3" th:text="${estudiante.primer_nombre} + ' ' + ${estudiante.primer_apellido}"></h5>
+                                    <div class="d-flex align-items-center justify-content-end col-5">
+                                        <input type="hidden" name="estudianteId" th:value="${estudiante.id}"/>
+                                        <input type="hidden" name="materiaId" th:value="${materia.id}"/>
+                                        <input type="number" name="nota" min="1" max="5" class="form-control" style="width: 60px;" required>
+                                        <span class="ms-2">/5</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3 d-flex flex-column col-3 mx-auto">
+                        <label for="fecha" class="form-label">Fecha:</label>
+                        <input type="date" id="fecha" name="fecha" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-3">Asignar Notas</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <footer th:replace="~{base::footer}"></footer>
+</body>
+</html>

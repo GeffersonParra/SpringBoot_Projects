@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<title>Crear Materia | SpringUniversity</title>
+
+<head th:replace="~{base::head}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <nav th:replace="~{base::nav}"></nav>
+    <h1 class="text-center mt-2" th:text="'Editar materia: ' + ${materia.nombre_materia}"></h1>
+    <form th:action="@{/materias/update/{id}(id=${materia.id})}" class="d-flex flex-column w-50 mx-auto" method="post" enctype="multipart/form-data">
+        <label for="nombre" class="mt-4 text-center">Nombre de la materia:</label>
+        <input type="text" id="nombre" class="h-50 w-50 mx-auto" name="nombre_materia"
+            th:value="${materia.nombre_materia}" />
+
+        <label for="foto" class="text-center mt-2">Foto actual de la materia:</label>
+        <img th:src="${materia.ruta_foto}" class="mx-auto mb-3" style="width:25rem; object-fit: cover;">
+        <input type="file" id="foto" class="h-50 w-50 mx-auto" name="foto" />
+
+        <label for="id_profesor" class="text-center mt-3">Profesor que dicta la materia:</label>
+        <select name="id_profesor" id="id_profesor" class="w-50 mx-auto">
+            <option th:each="profesor : ${profesores}" th:value="${profesor.id}"
+                th:text="${profesor.primer_nombre} + ' ' + ${profesor.primer_apellido}"
+                th:selected="${profesor.primer_nombre} + ${profesor.primer_apellido} == ${materia.id_profesor.primer_nombre} + ${materia.id_profesor.primer_apellido}">
+            </option>
+        </select>
+
+
+        <label for="salon" class="text-center">Salón donde se llevará a cabo la materia:</label>
+        <input type="text" id="salon" class="h-50 w-50 mx-auto" name="salon" th:value="${materia.salon}" />
+
+        <label for="curso" class="text-center">Curso al cuál pertenece la materia:</label>
+        <select name="curso" id="curso" class="w-50 mx-auto">
+            <option th:each="curso : ${cursos}" th:value="${curso.id}" th:text="${curso.nombre_curso}" th:selected="${curso.nombre_curso} == ${materia.curso.nombre_curso}"></option>
+        </select>
+
+        <label for="hora_inicio" class="text-center">Hora de inicio de la materia:</label>
+        <input type="time" id="hora_inicio" class="h-50 w-50 mx-auto" name="HoraInicio" th:value="${materia.horaInicio}"/>
+
+        <label for="hora_fin" class="text-center">Hora de finalización de la materia:</label>
+        <input type="time" id="hora_fin" class="h-50 w-50 mx-auto" name="HoraFin" th:value="${materia.horaFin}"/>
+
+        <button type="submit" class="btn btn-primary mt-4 w-25 mx-auto" style="margin-bottom: 8rem;">Guardar curso</button>
+    </form>
+    <footer th:replace="~{base::footer}"></footer>
+</body>
+
+</html>

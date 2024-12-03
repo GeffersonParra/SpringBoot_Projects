@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<title>Asignar Curso | SpringUniversity</title>
+
+<head th:replace="~{base::head}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body style="overflow-y: auto;">
+    <nav th:replace="~{base::nav}"></nav>
+    <div class="d-flex flex-column col-10 mx-auto">
+        <h3 class="text-center mt-3 col-12"
+            th:text="'Asignar curso al estudiante: ' + ${estudiante.primer_nombre} + ' ' + ${estudiante.primer_apellido}">
+        </h3>
+        <div th:if="${cursos.size() == 0}" class="d-flex justify-content-center align-items-center mt-5 rounded-5"
+            style="background-color: rgb(217, 217, 217); height: 10rem;">
+            <h3 class="d-flex gap-3 align-items-center">
+                <box-icon name='happy-alt' type='solid' color='#202020'></box-icon>Este estudiante ya está inscrito en
+                todos los cursos disponibles.
+            </h3>
+        </div>
+        <div th:if="${cursos.size() > 0}" class="container mt-4 d-flex">
+            <form class="d-flex col-12 flex-column" action="" method="post">
+                <input type="hidden" th:value="${estudiante.id}" name="usuario_id"/>
+                <label for="curso" class="mx-auto">Selecciona el curso a asignar:</label>
+                <select name="curso_id" id="curso" class="w-25 mx-auto">
+                    <option th:each="curso : ${cursos}" th:value="${curso.id}" th:text="${curso.nombre_curso}"></option>
+                </select>
+                <button class="btn btn-primary col-2 mx-auto mt-4">Asignar curso</button>
+            </form>
+        </div>
+    </div>
+    <footer th:replace="~{base::footer}"></footer>
+</body>
+
+</html>

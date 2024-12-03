@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+    <title>Editar Curso | SpringUniversity</title>
+<head th:replace="~{base::head}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <nav th:replace="~{base::nav}"></nav>
+    <form th:action="@{/cursos/update/{id}(id=${curso.id})}" class="d-flex flex-column w-50 mx-auto"  method="post" enctype="multipart/form-data">
+        <label for="nombre" class="mt-4 text-center">Nombre del curso:</label>
+        <input type="text" id="nombre" class="h-50 w-50 mx-auto" name="nombre_curso" th:value="${curso.nombre_curso}"/>
+        <label for="foto" class="text-center d-flex flex-column mx-auto mt-4">Foto actual del curso:
+            <img th:src="${curso.ruta_foto}" class="rounded-5" alt="Imagen del curso" style="object-fit: cover; height: 15rem;">
+        </label>
+        <input type="file" id="foto" class="h-50 w-50 mx-auto mt-4" name="foto" />
+        <button type="submit" class="btn btn-primary mt-2 mb-5 w-25 mx-auto">Actualizar curso</button>
+    </form>
+    <footer th:replace="~{base::footer}"></footer>
+</body>
+</html>

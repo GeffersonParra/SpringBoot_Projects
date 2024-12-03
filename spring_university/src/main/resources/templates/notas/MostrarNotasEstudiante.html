@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<title>Notas | SpringUniversity</title>
+
+<head th:replace="~{base::head}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <nav th:replace="~{base::nav}"></nav>
+    <h2 th:text="'Notas del estudiante: ' + ${estudiante.primer_nombre} + ' ' + ${estudiante.primer_apellido}" class="text-center mt-3 mb-3"></h2>
+    <div th:each="nota : ${notas}">
+        <div class="row justify-content-center mb-4 col-4 mx-auto">
+            <div class="card">
+                <div class="card-body d-flex flex-column">
+                    <h4 class="col-12 mt-3 mb-3" th:text="'Nota de ' + ${nota.materia.nombre_materia} + ' del curso: ' + ${nota.materia.curso.nombre_curso}"></h4>
+                    <h5 th:text="'Profesor: ' + ${nota.materia.id_profesor.primer_nombre} + ' ' + ${nota.materia.id_profesor.primer_apellido}" style="color: rgb(144, 144, 144);"></h5>
+                    <p th:if="${nota.nota} < 3.0">
+                        <span style="color: red;" th:text="${nota.nota}"></span> / <span style="color: gray;">5.0</span>
+                    </p>
+                    <p th:if="${nota.nota} >= 3.0">
+                        <span style="color: rgb(4, 131, 0);" th:text="${nota.nota}"></span> / <span style="color: gray;">5.0</span>
+                    </p>
+                    <!--<div class="d-flex col-12 gap-3 justify-content-end align-items-center">
+                        <a style="text-decoration: none;">
+                            <button class="btn btn-success align-items-center d-flex"><box-icon type='solid'
+                                    name='download'></box-icon></button>
+                        </a>
+                    </div>-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <footer th:replace="~{base::footer}"></footer>
+</body>

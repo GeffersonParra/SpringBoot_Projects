@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<title>Editar Usuario | SpringUniversity</title>
+<head th:replace="~{base::head}">
+</head>
+<body>
+    <nav th:replace="~{base::nav}"></nav>
+    <div class="col-10 mx-auto d-flex flex-column justify-content-center">
+        <h1 class="text-center mt-2" th:text="'Editar Estudiante: ' + ${estudiante.primer_nombre} + ' ' + ${estudiante.primer_apellido}"></h1>
+        <form th:action="@{/estudiantes/update/{id}(id=${estudiante.id})}" class="d-flex flex-column w-50 mx-auto"  method="post" enctype="multipart/form-data">
+            <label for="nombre" class="text-center">Nombre del estudiante:</label>
+            <input type="text" id="nombre" class="h-50 w-50 mx-auto" name="primer_nombre" th:value="${estudiante.primer_nombre}"/>
+            <label for="apellido" class="text-center">Apellido del estudiante:</label>
+            <input type="text" id="apellido" class="h-50 w-50 mx-auto" name="primer_apellido" th:value="${estudiante.primer_apellido}"/>
+            <p class="text-center mt-3">Foto actual del estudiante: </p>
+            <img th:src="${estudiante.ruta_foto}" style="width: 15rem; object-fit: cover;" class="mx-auto">
+            <label for="foto" class="text-center mt-3">Nueva foto del estudiante:</label>
+            <input type="file" id="foto" class="h-50 w-50 mx-auto" name="foto"/>
+            <button type="submit" class="btn btn-primary mt-4 mb-5 w-50 mx-auto">Guardar estudiante</button>
+        </form>
+    </div>
+    <br>
+    <footer th:replace="~{base::footer}"></footer>
+</body>
+</html>

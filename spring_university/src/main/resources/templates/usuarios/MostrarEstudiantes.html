@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<title>Estudiantes | SpringUniversity</title>
+
+<head th:replace="~{base::head}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <nav th:replace="~{base::nav}"></nav>
+    <div class="col-10 mx-auto d-flex flex-column justify-content-center">
+        <div class="d-flex flex-column justify-content-center align-items-center">
+            <h1 class="text-center mt-2 col-10">Estudiantes</h1>
+            <a href="/estudiantes/new">
+                <button class="btn btn-primary h-50 mt-2">Crear nuevo estudiante</button>
+            </a>
+        </div>
+        <div class="container text-center">
+            <div th:if="${estudiantes.size() == 0}"
+                class="d-flex justify-content-center align-items-center mt-5 rounded-5"
+                style="background-color: rgb(217, 217, 217); height: 10rem;">
+                <h3>
+                    <box-icon name='sad' type='solid' color='#202020'></box-icon>No hay estudiantes registrados aún.
+                </h3>
+            </div>
+            <div th:if="${estudiantes.size() > 0}" class="container mt-4">
+                <div class="col-6 mb-4 mx-auto" th:each="estudiante : ${estudiantes}">
+                <div class="row justify-content-center">
+                    <div class="card">
+                        <div class="card-body d-flex gap-5">
+                            <img th:src="${estudiante.ruta_foto}" class="rounded-3 col-1" alt="Imagen del profesor"
+                                style="object-fit:cover;">
+                            <h5 class="col-5 mt-3 mb-3"
+                                th:text="${estudiante.primer_nombre} + ' ' + ${estudiante.primer_apellido}"></h5>
+                            <div class="d-flex col-4 gap-3 justify-content-end align-items-center">
+                                <a style="text-decoration: none;"
+                                    th:href="@{/estudiantes/view/{id}(id=${estudiante.id})}">
+                                    <button class="btn btn-info align-items-center d-flex"><box-icon
+                                            name='search'></box-icon></box-icon></button>
+                                </a>
+                                <a style="text-decoration: none;" th:href="@{/estudiantes/edit/{id}(id=${estudiante.id})}">
+                                    <button class="btn btn-warning align-items-center d-flex"><box-icon type='solid'
+                                            name='edit-alt'></box-icon></button>
+                                </a>
+                                <form method="post" th:action="@{/estudiantes/delete/{id}(id=${estudiante.id})}">
+                                    <button class="btn btn-danger align-items-center d-flex"><box-icon name='trash'
+                                            type='solid'></box-icon></button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <footer th:replace="~{base::footer}"></footer>
+</body>
+
+</html>
